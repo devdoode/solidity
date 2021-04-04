@@ -1,0 +1,63 @@
+pragma solidity 0.8.1;
+
+contract Helloworld {
+    
+    //constructor is a function that is run only one time i.e when the SC is deployed. 
+    //Used to initialize i.e set various properties or states by the creator of contract
+    string mess;
+    constructor(string memory _message) {
+        mess = _message;
+        
+    }
+    
+    function hello() public view returns(string memory){
+    
+    //pure means it will not interact with any other part of contract
+    //when we use string then it should be followed by memory 
+    //variables can be declared either in contract scope(called state variables) (i.e can be accessed across function) or 
+    //within a function scope (local variables)
+    
+   // return "Hello World!!";
+    return mess;
+    }
+
+
+/* JS v/s solidity
+    - JS is untyped (i.e var can be used for all types of variables); Sol is typed (int a =1, string b = "hello",
+                    bool c = false, address b = 0x...; unint is unsigned integer i.e only >=0)
+    -decimal number dont exist in solidity i.e a = 1.5 doesnot exist; only integers
+    
+*/
+
+/* types of functions:
+
+pure = means this fucntion doesnot interact any where outside the function i.e state variables or other functions
+
+view = it can ineract i.e only read with state variables (cannot edit)*/
+
+// if conditions
+
+function hello2(int number) public view returns(string memory){
+    if(number == 10){
+        return mess;
+    }
+    else{
+        return "Sorry!";
+    }
+}
+//operators --> ==, <=,>=, + , -, *, / etc.
+//some vaiables are in built. eg: msg.sender is eth address of the person who called the function; other eg is msg.value
+function hello33() public view returns(string memory) {
+    if(msg.sender == 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4) {
+        return mess;
+    }
+    else{
+        return "Sorry!";
+    }
+
+
+
+}
+
+
+}
