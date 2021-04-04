@@ -1,0 +1,46 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+ int number;
+ 
+ function getNumber() public view returns(int){
+     
+     return number;
+ }
+
+
+//state change. i,e changing the state of the state variable number. Here we cannot use pure or view bcoz we are changing the state.
+function setNumber(int _number) public {
+    //for input variables generally we prefix _
+    number = _number;
+} 
+
+
+//Arrays - collection of values in one single data structure; list of values
+
+int[] box;//dynamic sized array
+uint[3] box3 = [2,5,6]; //fixed size array
+
+//to add elements to array .push cab be used ONLY if array is dynamic in size. if it is fixed size array then specifically add the indexed
+
+// i.e. box3[0] = 5; instead of box.push(3) --> adds at end of list;
+
+function addNumber(int _num) public {
+    box.push(_num);
+}
+
+function showNumber(uint _index) public view returns(int){
+    return box[_index];
+}
+
+function getArray() public view returns(int[] memory) {
+    return box;
+}
+
+
+
+
+
+
+}
