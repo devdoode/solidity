@@ -1,0 +1,27 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+//struct is similar to object is JS; similar to class; used to define own data structure/data type
+
+struct Person {
+    uint age;
+    string name;
+    //uint DOByear;
+}
+//above is definition of struct declaration is NOT allowed above. any instance of the struct has to be seperately created as shown below for e.g.
+
+Person[] tribe;
+
+function addTribe (uint _age, string memory _name) public {
+    
+    Person memory newPerson = Person(_age, _name);
+    tribe.push(newPerson);
+    
+}
+function getTribe(uint _index) public view returns(uint, string memory){ //note that we cannot struct as a whole and only properties of uint
+Person memory personToReturn = tribe[_index];
+return (personToReturn.age, personToReturn.name);// note the syntax for returning multiple values
+
+}
+}
