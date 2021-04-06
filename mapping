@@ -1,0 +1,23 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+//mapping is key value data type.; called as dictionaries also; e.g: address--> balance; lookup any address to get its value. Very efficient compared to arrays because in arrays searching hits performance
+//mapping(key data type (e.g. address) => value datatype(e.g: uint)) balance; 
+
+mapping (address => uint) balance;
+
+function addBalance(uint _toAdd) public returns(uint) {
+    balance[msg.sender] = balance[msg.sender] + _toAdd; // balance[msg.sender] += _toAdd
+    return balance[msg.sender];
+ 
+}
+
+function getBalance() public view returns(address, uint) {
+    
+ return (msg.sender,balance[msg.sender]);  
+}
+    
+
+
+}
