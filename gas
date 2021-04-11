@@ -1,0 +1,5 @@
+-powers EVM
+-gas consumption is fixed for each low level operation ( addition etc.)
+-gas price is not fixed
+-gas efficicency is the focus
+-storing variables permanently increases the gas fees by large extent. therefore only store what is really required.
