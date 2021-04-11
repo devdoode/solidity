@@ -1,0 +1,40 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+  //Visbility --> the accessability if state variables and functions of a contract; 4 visibility levels
+  //1. public --> accessable/executable within the contract, from other contract and from outside such as external services (e.g: remix)
+  //2. private --> accessable/executable only with the contract; naming convention use _ as prefix to function name
+  //3. external --> accessable ONLY from other contracts and external services
+  //4. internal --> accessable from within contract and other contracts derving from it (i.e inherited)
+  
+  
+   
+
+mapping (address => uint) balance;
+
+function addBalance(uint _toAdd) public returns(uint) {
+    balance[msg.sender] = balance[msg.sender] + _toAdd; // balance[msg.sender] += _toAdd
+    return balance[msg.sender];
+ 
+}
+
+function getBalance() public view returns(address, uint) {
+    
+ return (msg.sender,balance[msg.sender]);  
+}
+ 
+function _transfer(address from, address to, uint value) private {
+    
+    balance[from] -= value;
+    balance[to] += value;
+}
+ 
+function transferFunds(address recipient, uint amount) public {
+    //add checks whether minimum balance is there with sender
+    _transfer(msg.sender, recipient, amount);
+    //generate event logs and further checks;
+}   
+
+
+}
