@@ -10,5 +10,20 @@ assert()
     E.g: withdrawAll function after execution should result in balance becoming zero. Assert can check/validate this concept(invariant).
     
     
+ -Admin Functionality sort off:
+    -Eg: addBalance function to be used only by the address who deployed the contract. The function has to be public here but access should be restricted to specific addresses.
+    
+    address owner;
+    constructor(){
+    owner = msg.sender;
+    }
+    
+    function addBalance(){
+    require(msg.sender == owner);
+    
+    
+    }
+    
+    
     
 
