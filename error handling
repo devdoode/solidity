@@ -1,0 +1,14 @@
+require()
+-check for valid conditions
+-check input arguments (malicious actors can send bad inputs)
+-revert error if conditions are not true and stops the function execution; all the operations happend before will be reverted. And any leftover gas will be refunded.
+
+assert()
+-check for internal errors i.e. only throw error only when there is an error in the CODE.
+-check invariants
+    -Invariants --> conceptual condition that is supposed to be always true at a particular point in the code.
+    E.g: withdrawAll function after execution should result in balance becoming zero. Assert can check/validate this concept(invariant).
+    
+    
+    
+
