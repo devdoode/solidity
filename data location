@@ -1,0 +1,30 @@
+//3 locations to store data in solidity
+//-storage --> PERMANENT storage of data in contract ; e.g: state variable is stored in "storage". No need to specifically mention 
+//'storage' key word. By default state variables are stored in stirage
+
+pragma solidity 0.8.1;
+
+contract DataLocation {
+    
+    // 3 locations to store data in smart contracts
+    //-storage - permanenet/persistant storage of data. e.g state variable. it is stored permanently, it's value may keep changing
+    //-memory- to store data temprarily; e.g: argument/local varibles- memory keyword need NOT be specified for simple data
+            //types i.e value types such as uint, bool can be stored in memory by default; for complex variables like string, 
+             //it should be specified.
+    //-calldata - similar to memory, but READONLY
+    
+    
+    uint data;
+    string data1;
+    
+    function dataLoc(string memory one1 , string calldata two, uint one2 ) public {
+        
+       //two = "test"; -- this will throw error as calldata variable is for readonly, new value cannot be set.
+        
+    }
+    
+    
+    
+    
+    
+} 
