@@ -1,0 +1,44 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+ //EVM's data sturcture has provision to capture logs. Events can therefore be defined and logged.
+ //can act as notifications and can belistend to from external Apps
+ //events have to be deifined same like variables.
+  
+  
+   
+
+mapping (address => uint) balance;
+
+event balanceAdded(uint amount, address depositedTo);
+
+function addBalance(uint _toAdd) public returns(uint) {
+    balance[msg.sender] = balance[msg.sender] + _toAdd; // balance[msg.sender] += _toAdd
+    emit balanceAdded(_toAdd, msg.sender);
+    return balance[msg.sender];
+ 
+}
+
+function getBalance() public view returns(address, uint) {
+    
+ return (msg.sender,balance[msg.sender]);  
+}
+ 
+function _transfer(address from, address to, uint value) private {
+    
+    balance[from] -= value;
+    balance[to] += value;
+}
+ 
+function transferFunds(address recipient, uint amount) public {
+    //add checks whether minimum balance is there with sender
+    _transfer(msg.sender, recipient, amount);
+    //generate event logs and further checks;
+}   
+
+
+
+
+
+}
