@@ -1,0 +1,51 @@
+pragma solidity 0.8.1;
+
+contract degen {
+    
+//payable; all balances are internally maintained in wei. one ether equals 10^18 wei. i.e., quintillion
+//If a bank smart contrct is created and say five people(address) deposit 3 ether each, then the balance of the bank SC would be 15 and is stored on blockchain automatically;
+//the above is achieved throough "payable" keyword to the function; No additional line of code need to be written for calculating this total SC balance
+ //"address" can be payable and non-payable. Payable address data type can be assigned non-payable address and the datatype changes accordingly; non-payable address can never be sent ether.
+ 
+
+mapping (address => uint) balance;
+
+event balanceAdded(uint amount, address depositedTo);
+
+function deposit() public payable returns(uint) {
+  balance[msg.sender] += msg.value;  // 
+    emit balanceAdded(msg.value, msg.sender);
+    return balance[msg.sender];
+ 
+}
+
+function withdraw(uint amount, address payable withdrawTo) public returns(uint){
+    
+    balance[withdrawTo] -= amount;
+    withdrawTo.transfer(amount);
+    return balance[withdrawTo];
+    
+}
+
+function getBalance(address anyaddress) public view returns(uint) {
+    
+ return (balance[anyaddress]);  // or use balance[msg.sender]
+}
+ 
+function _transfer(address from, address to, uint value) private {
+    
+    balance[from] -= value;
+    balance[to] += value;
+}
+ 
+function transferFunds(address recipient, uint amount) public {
+    //add checks whether minimum balance is there with sender
+    _transfer(msg.sender, recipient, amount);
+    //generate event logs and further checks;
+}   
+
+
+
+
+
+}
