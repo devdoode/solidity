@@ -1,0 +1,70 @@
+pragma solidity 0.8.1;
+
+import "./slaveMod.sol"; //for impoting from another file
+
+contract ownerrights{
+    
+   address owner;
+   
+   constructor() {
+       owner = msg.sender;
+       
+   }
+   
+   modifier onlyOwner {
+       require(msg.sender == owner);
+       _;
+       
+   }
+    
+    
+    
+}
+
+
+contract degen is ownerrights {
+    
+
+ 
+
+mapping (address => uint) balance;
+
+event balanceAdded(uint amount, address depositedTo);
+
+function deposit() public payable returns(uint) {
+  balance[msg.sender] += msg.value;  // 
+    emit balanceAdded(msg.value, msg.sender);
+    return balance[msg.sender];
+ 
+}
+
+function withdraw(uint amount, address payable withdrawTo) onlyOwner public returns(uint){
+    
+    balance[withdrawTo] -= amount;
+    withdrawTo.transfer(amount);
+    return balance[withdrawTo];
+    
+}
+
+function getBalance(address anyaddress) public view returns(uint) {
+    
+ return (balance[anyaddress]);  // or use balance[msg.sender]
+}
+ 
+function _transfer(address from, address to, uint value) private {
+    
+    balance[from] -= value;
+    balance[to] += value;
+}
+ 
+function transferFunds(address recipient, uint amount) public {
+    //add checks whether minimum balance is there with sender
+    _transfer(msg.sender, recipient, amount);
+    //generate event logs and further checks;
+}   
+
+
+
+
+
+}
