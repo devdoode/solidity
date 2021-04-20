@@ -1,0 +1,41 @@
+Contract Composition :
+Solidity supports contract composition. Composition refers to combining multiple contracts or data types together to create complex data structures and contracts.
+It is a good practice to break down problems into multi-contract solutions and compose them together using contract composition.
+Inheritance :
+Inheritance is one of the pillars of object orientation and Solidity supports inheritance between smart contracts. Inheritance is the process of defining multiple contracts that are related to each other through parent-child relationships.
+The contract that is inherited is called the parent contract and the contract that inherits is called the child contract.
+Similarly, the contract has a parent known as the derived class and the parent contract is known as a base contract.
+Inheritance is mostly about code-reusability. There is a is-a relationship between base and derived contracts and all public and internal scoped
+functions and state variables are available to derived contracts.
+In fact, Solidity compiler copies the base contract bytecode into derived contract bytecode. The is keyword is used to inherit the base contract in the derived contract. It is one of the most important concepts that should be mastered by every Solidity developer because of the way contracts are versioned and deployed.
+Solidity supports multiple types of inheritance, including multiple inheritance. Solidity copies the base contracts into the derived contract and a single contract is created with inheritance. A single address is generated that is shared between contracts in a parent- child relationship.
+Single inheritance :
+Single inheritance helps in inheriting the variables, functions, modifiers, and events of base contracts into the derived class.
+
+Single inheritance
+Multi-level inheritance:
+Multi-level inheritance is very similar to single inheritance; however, instead of just a single
+parent-child relationship, there are multiple levels of parent-child relationship.
+
+Multi-level inheritance
+This is shown in the following diagram. Contract A is the parent of Contract B and Contract B is the parent of Contract C:
+Hierarchical inheritance :
+Hierarchical inheritance is again similar to simple inheritance. Here, however, a single contract acts as a base contract for multiple derived contracts.
+
+Hierarchical inheritance
+This is shown in the following diagram. Here, Contract A is derived in both Contract B and Contract C:
+Multiple inheritance :
+Solidity supports multiple inheritance. There can be multiple levels of single inheritance.
+However, there can also be multiple contracts that derive from the same base contract.
+These derived contracts can be used as base contracts together in further child classes.
+When contracts inherit from such child contracts together, there is multiple inheritance, as shown in the following diagram:
+
+Multiple inheritance :
+Note : Solidity follows the path of Python and uses C3 Linearization, also known as Method Resolution Order (MRO), to force a specific order in graphs of base contracts. The contracts should follow a specific order while inheriting, starting from the base contract through to the most derived contract.
+Encapsulation :
+Encapsulation is one of the most important pillars of OOP. Encapsulation refers to the process of hiding or allowing access to state variables directly for changing their state.
+It refers to the pattern of declaring variables that cannot be accessed directly by clients and can only be modified using functions. This helps in constraint access to variables but, at the same time, allows enough access to class for taking action on it.
+Solidity provides multiple visibility modifiers such as external , public , internal , and private that affects the visibility of state variables within the contract in which they are defined, inheriting child contracts or outside contracts.
+
+
+source: https://medium.com/coinmonks/solidity-and-object-oriented-programming-oop-191f8deb8316
