@@ -1,0 +1,61 @@
+SELF DESTRUCTING SMART CONTRACTS IN ETHEREUM
+
+DONN FELKER
+POSTED: JUNE 20, 2018 • 1 COMMENT
+
+Once a contract is created on the Ethereum blockchain it cannot be modified.
+
+Said another way – it’s written in stone.
+
+UPDATING YOUR CODE IS PROBLEMATIC … ACTUALLY IMPOSSIBLE
+Updating a smart contact can be a problem if you need to change the code that runs the smart contract because the contact code is … well … written in stone – in the Ethereum blockchain. If you need to make a change to your code, you need to deploy a new version of your smart contract.
+
+Therein lies the rub … your old code is still out there running. 🤔
+
+For example, here’s some actual code that is on the Ethereum Testnet blockchain (the test version of the Ethereum blockchain):
+
+Etherscan View on Etherscan
+
+Soo.. why can’t you update the code?
+
+You can’t update your code because each subsequent block on the blockchain contains the hash of the previous block(s) and changing this block to contain new code would mean we’d have to recalculate all the subsequent blocks in the blockchain and that’s not something that’s possible as this is exactly one of the things that the Ethereum blockchain prevents (changing history).
+
+So … we can’t update our code. Good news though – we can remove it, and its data.
+
+HOW TO “SELFDESTRUCT” A CONTRACT
+When the time comes to stop having your contract executing its code or if you simply want to shut it down, and get rid of it you can have a smart contract self-destruct with the selfdestruct operation1.
+
+Here’s an example of what selfdestruct would look like in a Solidity smart contract function:
+
+function close() public onlyOwner { //onlyOwner is custom modifier
+  selfdestruct(owner);  // `owner` is the owners address
+}
+The selfdestruct operation above (which is an OPCODE at the EVM level) sends all of the current smart contract balance to a destination address – in this case to the owners address, which is stored in the owner variable.
+
+At the same time, the contract’s data is cleared, freeing up space in the Ethereum blockchain and potentially lowering your gas price.
+
+Important note: If you’re going self-destruct a contract AND you still need the data for whatever reason, you will need to query the data from the contract and store it somewhere (offline, into another contract, etc).
+
+BENEFITS OF USING SELFDESTRUCT
+Benefit	Reasoning
+Stop Execution	If you no longer want the contract running, you can selfdestruct it to “turn it off”.
+Eliminate Bugs	(Similar to above). You can kill off smart contracts that are buggy.
+Lower Gas Price	It costs less gas to selfdestruct a contract.
+Why is the gas price lower?
+
+Self-destructing a smart contract is cheaper than simply performing a similar operation such as address.send(this.balance). It has been reported that this OPCODE uses negative gas because the operation frees up space on the blockchain by clearing the contracts data. This negative gas can offset the total gas cost. Example, if you’re cleaning up a bunch of data first and then performing the selfdestruct operation, your gas cost can be negative. (source)
+
+SELFDESTRUCT GOTCHAS
+Gotcha	Reasoning
+No Undo	Once the contract is self destructed, there’s no coming back. Game over.
+🚨Losing ETH	If you send a transaction or funds to a self destructed contract your funds will be lost.
+Yes, that’s right! To re-iterate:
+
+⚠️ If you send a transaction or funds to a self-destructed contract you will lose your funds.
+
+If you’ve developed a DApp that has the smart contract address stored in the DApp, you will need to make sure that you change or remove that address any time you self-destruct a contract so that you do not accidentally send a transaction or funds to it.
+
+CONCLUSION
+Whilst the Ethereum blockchain is immutable by default, there are ways to deploy new code or kill off old smart contracts. If you want to stop the execution of the smart contract, simply call the selfdestruct operation in your contract (make sure its secured behind a secure modifier).
+
+source: https://articles.caster.io/blockchain/self-destructing-smart-contracts-in-ethereum/
