@@ -75,7 +75,7 @@ contract walletMultisig {
             index: txindex 
             }));
         isConfirmed[txindex][msg.sender] = true;
-        return(txindex);
+        return(txindex);//can emit an event here
     }
     
     function approveTransaction(uint _txindex) public onlyOwner onlyCreated(_txindex) onlyNotConfirmed(_txindex) returns(string memory){
