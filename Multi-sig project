@@ -5,11 +5,13 @@ contract walletMultisig {
     address[] public owners;
     uint public quorum;
     mapping (address => bool) isOwner;
+    uint public contractBal;
+    
     
     struct Transaction{
         
         address from;
-        address to;
+        address payable to;
         uint amount;
         bool isExecuted;
         //mapping(address => bool) isApprovedd; mapping inside a struct is not allowed in recent solidity versions; have to use double mapping instead.
@@ -18,7 +20,7 @@ contract walletMultisig {
     }
     
     mapping(uint=> mapping(address=>bool)) isConfirmed;
-    
+     
     Transaction[] public transactions;
     
     //mapping (address=>uint) accBalance; 
@@ -53,12 +55,12 @@ contract walletMultisig {
 }
    
    
-    function deposit() payable external onlyOwner returns(uint){
+    function deposit() payable external onlyOwner {
         
-        return(address(this).balance);
+        contractBal = (address(this).balance);
     } 
     
-    function createTransaction(address _to, uint _value) public onlyOwner returns(uint) {
+    function createTransaction(address payable _to, uint _value) public onlyOwner returns(uint) {
         
         require(address(this).balance >= _value, "Insufficient balance");
         uint txindex = transactions.length;
@@ -78,18 +80,19 @@ contract walletMultisig {
     
     function approveTransaction(uint _txindex) public onlyOwner onlyCreated(_txindex) onlyNotConfirmed(_txindex) returns(string memory){
         
-        Transaction storage transaction = transactions[_txindex-1];
+        Transaction storage transaction = transactions[_txindex];
         transaction.approveCount +=1;
         isConfirmed[_txindex][msg.sender] = true;
         
-        if(transaction.approveCount == quorum){
-            
-            return("Successfully transferred");
+        if(transaction.approveCount >= quorum){
+           transaction.isExecuted = true;
+           transaction.to.transfer(transaction.amount);
+           
+           return("Successfully transferred");//instead can use emit to notify all the stakeholders
             
         }
         
     }
     
-    
-      
+  
 }    
