@@ -1,0 +1,26 @@
+when a storage variable is assigned memory variable or vice versa, then the assignment would be COPY
+when a memory variable is assigned another memory variable the the assignment would be through reference(pointer)
+when a storage variable is assigned storage variable, then the assignment would be through referencer(pointer)
+
+pragma solidity 0.8.1
+
+contract ABC {
+
+uint[] storageArray;
+
+function test(uint[] memory memoryArray1) {
+
+storageArray = memoryArray1; // E.g let memoryArray1 = [1,2,3], then storageArray would be [1,2,3]
+memoryArray1.push(4); // storageArray would STILL be [1,2,3] only bcoz it is assigning by COPY
+uint[] storage storageArray2 = storageArray;
+storageArray2.push(5); // then storageArray also would be changed to [1,2,3,5] bcoz it is assigning by pointer.
+
+
+
+
+}
+
+
+
+
+}
