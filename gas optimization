@@ -1,0 +1,3 @@
+Public costs more gas than external. Use external where ever possible.
+For input arguments in fucntion, use calldata instead of memory, if the same need not be updated
+view/pure take less gas - as no modification of state variables. No gas is consumed for these two type of functions IRRESPECTIVE of how complex the code is with in such functions.
