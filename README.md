@@ -1,2 +1,1 @@
 # solidity
-solidity basics
